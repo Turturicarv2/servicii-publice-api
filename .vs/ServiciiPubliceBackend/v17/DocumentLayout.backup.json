@@ -3,12 +3,24 @@
   "WorkspaceRootPath": "D:\\danielp\\Projects\\ServiciiPubliceBackend\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F4DA19F4-4794-421C-B687-1A81870EA56F}|ServiciiPubliceBackend.csproj|d:\\danielp\\projects\\serviciipublicebackend\\serviciipublicebackend.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{F4DA19F4-4794-421C-B687-1A81870EA56F}|ServiciiPubliceBackend.csproj|solutionrelative:serviciipublicebackend.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{F4DA19F4-4794-421C-B687-1A81870EA56F}|ServiciiPubliceBackend.csproj|d:\\danielp\\projects\\serviciipublicebackend\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F4DA19F4-4794-421C-B687-1A81870EA56F}|ServiciiPubliceBackend.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F4DA19F4-4794-421C-B687-1A81870EA56F}|ServiciiPubliceBackend.csproj|d:\\danielp\\projects\\serviciipublicebackend\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{F4DA19F4-4794-421C-B687-1A81870EA56F}|ServiciiPubliceBackend.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F4DA19F4-4794-421C-B687-1A81870EA56F}|ServiciiPubliceBackend.csproj|d:\\danielp\\projects\\serviciipublicebackend\\migrations\\createghiseutable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F4DA19F4-4794-421C-B687-1A81870EA56F}|ServiciiPubliceBackend.csproj|solutionrelative:migrations\\createghiseutable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F4DA19F4-4794-421C-B687-1A81870EA56F}|ServiciiPubliceBackend.csproj|d:\\danielp\\projects\\serviciipublicebackend\\models\\ghiseu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F4DA19F4-4794-421C-B687-1A81870EA56F}|ServiciiPubliceBackend.csproj|solutionrelative:models\\ghiseu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F4DA19F4-4794-421C-B687-1A81870EA56F}|ServiciiPubliceBackend.csproj|d:\\danielp\\projects\\serviciipublicebackend\\repositories\\ghiseurepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F4DA19F4-4794-421C-B687-1A81870EA56F}|ServiciiPubliceBackend.csproj|solutionrelative:repositories\\ghiseurepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,34 +30,73 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 5,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "ServiciiPubliceBackend",
-              "DocumentMoniker": "D:\\danielp\\Projects\\ServiciiPubliceBackend\\ServiciiPubliceBackend.csproj",
-              "RelativeDocumentMoniker": "ServiciiPubliceBackend.csproj",
-              "ToolTip": "D:\\danielp\\Projects\\ServiciiPubliceBackend\\ServiciiPubliceBackend.csproj",
-              "RelativeToolTip": "ServiciiPubliceBackend.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-08-27T06:51:07.794Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
             },
             {
               "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "GhiseuRepository.cs",
+              "DocumentMoniker": "D:\\danielp\\Projects\\ServiciiPubliceBackend\\Repositories\\GhiseuRepository.cs",
+              "RelativeDocumentMoniker": "Repositories\\GhiseuRepository.cs",
+              "ToolTip": "D:\\danielp\\Projects\\ServiciiPubliceBackend\\Repositories\\GhiseuRepository.cs",
+              "RelativeToolTip": "Repositories\\GhiseuRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-27T08:27:54.441Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Ghiseu.cs",
+              "DocumentMoniker": "D:\\danielp\\Projects\\ServiciiPubliceBackend\\Models\\Ghiseu.cs",
+              "RelativeDocumentMoniker": "Models\\Ghiseu.cs",
+              "ToolTip": "D:\\danielp\\Projects\\ServiciiPubliceBackend\\Models\\Ghiseu.cs",
+              "RelativeToolTip": "Models\\Ghiseu.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-27T08:23:44.286Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "CreateGhiseuTable.cs",
+              "DocumentMoniker": "D:\\danielp\\Projects\\ServiciiPubliceBackend\\Migrations\\CreateGhiseuTable.cs",
+              "RelativeDocumentMoniker": "Migrations\\CreateGhiseuTable.cs",
+              "ToolTip": "D:\\danielp\\Projects\\ServiciiPubliceBackend\\Migrations\\CreateGhiseuTable.cs",
+              "RelativeToolTip": "Migrations\\CreateGhiseuTable.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-27T08:01:35.404Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "D:\\danielp\\Projects\\ServiciiPubliceBackend\\appsettings.json",
+              "RelativeDocumentMoniker": "appsettings.json",
+              "ToolTip": "D:\\danielp\\Projects\\ServiciiPubliceBackend\\appsettings.json",
+              "RelativeToolTip": "appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAACFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-08-27T07:59:33.88Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
               "Title": "Program.cs",
               "DocumentMoniker": "D:\\danielp\\Projects\\ServiciiPubliceBackend\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
               "ToolTip": "D:\\danielp\\Projects\\ServiciiPubliceBackend\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAABYAAAAAAAAAAAAawCoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-08-27T06:44:53.596Z",
               "EditorCaption": ""
