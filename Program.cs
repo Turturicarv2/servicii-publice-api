@@ -1,6 +1,8 @@
 using FluentMigrator.Runner;
 using Microsoft.Data.SqlClient;
 using ServiciiPubliceBackend.DAL;
+using ServiciiPubliceBackend.Repositories;
+using ServiciiPubliceBackend.UnitOfWork;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +21,9 @@ builder.Services.AddFluentMigratorCore()
     .AddLogging(lb => lb.AddFluentMigratorConsole());
 
 builder.Services.AddScoped<IDbAccess, DbAccess>();
+builder.Services.AddScoped<IBonRepository, BonRepository>();
+builder.Services.AddScoped<IGhiseuRepository, GhiseuRepository>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 var app = builder.Build();
 
