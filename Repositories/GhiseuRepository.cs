@@ -4,7 +4,7 @@ using ServiciiPubliceBackend.Models;
 
 namespace ServiciiPubliceBackend.Repositories
 {
-    public class GhiseuRepository
+    public class GhiseuRepository : IGhiseuRepository
     {
         private readonly IDbAccess _db;
 

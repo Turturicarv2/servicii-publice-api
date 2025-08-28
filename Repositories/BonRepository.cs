@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace ServiciiPubliceBackend.Repositories
 {
-    public class BonRepository
+    public class BonRepository : IBonRepository
     {
         private readonly IDbAccess _db;
 
