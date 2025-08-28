@@ -19,5 +19,12 @@ namespace ServiciiPubliceBackend.DAL
             await connection.ExecuteAsync(sql, parameters);
             connection.Close();
         }
+
+        public async Task<IEnumerable<T>> ExecuteQueryAsync<T>(string sql, object? parameters = null)
+        {
+            using var connection = new SqlConnection(_connectionString);
+            await connection.OpenAsync();
+            return await connection.QueryAsync<T>(sql, parameters);
+        }
     }
 }
