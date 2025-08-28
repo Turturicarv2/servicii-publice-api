@@ -16,3 +16,4 @@ packages/
 *.bak
 *.sql
 *.ldf
+appsettings.*.json
