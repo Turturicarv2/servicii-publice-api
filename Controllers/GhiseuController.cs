@@ -53,7 +53,7 @@ namespace ServiciiPubliceBackend.Controllers
             }
         }
 
-        [HttpPut("{id}")]
+        [HttpPatch("{id}")]
         public async Task<IActionResult> MarkGhiseuAsActive(int id)
         {
             try 
@@ -71,7 +71,7 @@ namespace ServiciiPubliceBackend.Controllers
             }
         }
 
-        [HttpPut("{id}")]
+        [HttpPatch("{id}")]
         public async Task<IActionResult> MarkGhiseuAsInactive(int id)
         {
             try
