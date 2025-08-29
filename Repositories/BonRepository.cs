@@ -1,24 +1,24 @@
-﻿using Microsoft.Data.SqlClient;
-using ServiciiPubliceBackend.DAL;
+﻿using ServiciiPubliceBackend.DAL;
 using ServiciiPubliceBackend.Models;
+using System.Threading.Tasks;
 
 namespace ServiciiPubliceBackend.Repositories
 {
-    public class GhiseuRepository : IGhiseuRepository
+    public class BonRepository : IBonRepository
     {
         private readonly IDbAccess _db;
 
-        public GhiseuRepository(IDbAccess db)
+        public BonRepository(IDbAccess db)
         {
             _db = db;
         }
 
-        public async Task<IEnumerable<Ghiseu>> GetAllGhiseuAsync()
+        public async Task<IEnumerable<Bon>> GetAllBon()
         {
             try
             {
-                string sql = "SELECT * FROM Ghiseu";
-                return await _db.ExecuteQueryAsync<Ghiseu>(sql);
+                string sql = "SELECT * FROM Bon";
+                return await _db.ExecuteQueryAsync<Bon>(sql);
             }
             catch (Exception ex)
             {
