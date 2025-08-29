@@ -52,5 +52,23 @@ namespace ServiciiPubliceBackend.Controllers
                 return StatusCode(500, "Internal Server Error: " + ex.Message);
             }
         }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> MarkGhiseuAsActive(int id)
+        {
+            try 
+            {
+                bool updated = await _unitOfWork.Ghisee.MarkGhiseuAsActive(id);
+
+                if (!updated)
+                    return NotFound("Ghiseu not found!");
+
+                return Ok();
+            }
+            catch (Exception exception)
+            {
+                return StatusCode(500, "Internal Server Error: " + exception.Message);
+            }
+        }
     }
 }

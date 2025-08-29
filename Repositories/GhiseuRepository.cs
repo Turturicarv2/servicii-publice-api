@@ -46,5 +46,15 @@ namespace ServiciiPubliceBackend.Repositories
 
             return rowsAffected > 0;
         }
+
+        public async Task<bool> MarkGhiseuAsActive(int Id)
+        {
+            string sql = "UPDATE Ghiseu " +
+                "SET Activ = 1 " +
+                "WHERE Id = @Id";
+
+            var rowsAffected = await _db.ExecuteNonQueryAsync(sql, new { Id });
+            return rowsAffected > 0;
+        }
     }
 }

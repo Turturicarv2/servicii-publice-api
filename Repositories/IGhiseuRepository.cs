@@ -6,5 +6,6 @@ namespace ServiciiPubliceBackend.Repositories
     {
         Task<IEnumerable<Ghiseu>> GetAllGhiseuAsync();
         Task<bool> EditGhiseu(Ghiseu ghiseuNou);
+        Task<bool> MarkGhiseuAsActive(int Id);
     }
 }
