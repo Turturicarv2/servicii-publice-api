@@ -15,8 +15,15 @@ namespace ServiciiPubliceBackend.Repositories
 
         public async Task<IEnumerable<Ghiseu>> GetAllGhiseuAsync()
         {
-            string sql = "SELECT * FROM Ghiseu";
-            return await _db.ExecuteQueryAsync<Ghiseu>(sql);
+            try
+            {
+                string sql = "SELECT * FROM Ghiseu";
+                return await _db.ExecuteQueryAsync<Ghiseu>(sql);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
         }
     }
 }

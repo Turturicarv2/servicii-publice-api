@@ -4,7 +4,7 @@ namespace ServiciiPubliceBackend.UnitOfWork
 {
     public interface IUnitOfWork
     {
-        BonRepository Bonuri { get; }
-        GhiseuRepository Ghisee { get; }
+        IBonRepository Bonuri { get; }
+        IGhiseuRepository Ghisee { get; }
     }
 }

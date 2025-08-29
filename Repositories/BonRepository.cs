@@ -15,8 +15,15 @@ namespace ServiciiPubliceBackend.Repositories
 
         public async Task<IEnumerable<Bon>> GetAllBon()
         {
-            string sql = "SELECT * FROM Bon";
-            return await _db.ExecuteQueryAsync<Bon>(sql);
+            try
+            {
+                string sql = "SELECT * FROM Bon";
+                return await _db.ExecuteQueryAsync<Bon>(sql);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
         }
     }
 }

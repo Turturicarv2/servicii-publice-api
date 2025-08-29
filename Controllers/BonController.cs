@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using ServiciiPubliceBackend.Models;
 using ServiciiPubliceBackend.UnitOfWork;
 
@@ -7,19 +6,19 @@ namespace ServiciiPubliceBackend.Controllers
 {
     [Route("api/[Controller]/[Action]")]
     [ApiController]
-    public class GhiseuController : Controller
+    public class BonController : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public GhiseuController(IUnitOfWork unitOfWork)
+        public BonController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
 
         [HttpGet]
-        public async Task<IEnumerable<Ghiseu>> GetAllGhisee()
+        public async Task<IEnumerable<Bon>> GetAllBonuri()
         {
-            return await _unitOfWork.Ghisee.GetAllGhiseuAsync();
+            return await _unitOfWork.Bonuri.GetAllBon();
         }
     }
 }
