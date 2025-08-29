@@ -35,7 +35,7 @@ namespace ServiciiPubliceBackend.Controllers
         {
             try
             {
-                bool updated = await _unitOfWork.Ghisee.EditGhiseu(ghiseuNou);
+                bool updated = await _unitOfWork.Ghisee.EditGhiseuAsync(ghiseuNou);
 
                 if (!updated)
                 {
@@ -58,9 +58,45 @@ namespace ServiciiPubliceBackend.Controllers
         {
             try 
             {
-                bool updated = await _unitOfWork.Ghisee.MarkGhiseuAsActive(id);
+                bool updated = await _unitOfWork.Ghisee.MarkGhiseuAsActiveAsync(id);
 
                 if (!updated)
+                    return NotFound("Ghiseu not found!");
+
+                return Ok();
+            }
+            catch (Exception exception)
+            {
+                return StatusCode(500, "Internal Server Error: " + exception.Message);
+            }
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> MarkGhiseuAsInactive(int id)
+        {
+            try
+            {
+                bool updated = await _unitOfWork.Ghisee.MarkGhiseuAsInactiveAsync(id);
+
+                if (!updated)
+                    return NotFound("Ghiseu not found!");
+
+                return Ok();
+            }
+            catch (Exception exception)
+            {
+                return StatusCode(500, "Internal Server Error: " + exception.Message);
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteGhiseu(int id)
+        {
+            try
+            {
+                bool deleted = await _unitOfWork.Ghisee.DeleteGhiseuAsync(id);
+
+                if (!deleted)
                     return NotFound("Ghiseu not found!");
 
                 return Ok();

@@ -17,18 +17,11 @@ namespace ServiciiPubliceBackend.Repositories
 
         public async Task<IEnumerable<Ghiseu>> GetAllGhiseuAsync()
         {
-            try
-            {
-                string sql = "SELECT * FROM Ghiseu";
-                return await _db.ExecuteQueryAsync<Ghiseu>(sql);
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
+            string sql = "SELECT * FROM Ghiseu";
+            return await _db.ExecuteQueryAsync<Ghiseu>(sql);
         }
 
-        public async Task<bool> EditGhiseu(Ghiseu ghiseuNou)
+        public async Task<bool> EditGhiseuAsync(Ghiseu ghiseuNou)
         {
             if (ghiseuNou == null)
             {
@@ -47,10 +40,29 @@ namespace ServiciiPubliceBackend.Repositories
             return rowsAffected > 0;
         }
 
-        public async Task<bool> MarkGhiseuAsActive(int Id)
+        public async Task<bool> MarkGhiseuAsActiveAsync(int Id)
         {
             string sql = "UPDATE Ghiseu " +
                 "SET Activ = 1 " +
+                "WHERE Id = @Id";
+
+            var rowsAffected = await _db.ExecuteNonQueryAsync(sql, new { Id });
+            return rowsAffected > 0;
+        }
+
+        public async Task<bool> MarkGhiseuAsInactiveAsync(int Id)
+        {
+            string sql = "UPDATE Ghiseu " +
+                "SET Activ = 0 " +
+                "WHERE Id = @Id";
+
+            var rowsAffected = await _db.ExecuteNonQueryAsync(sql, new { Id });
+            return rowsAffected > 0;
+        }
+
+        public async Task<bool> DeleteGhiseuAsync(int Id)
+        {
+            string sql = "DELETE FROM Ghiseu " +
                 "WHERE Id = @Id";
 
             var rowsAffected = await _db.ExecuteNonQueryAsync(sql, new { Id });
