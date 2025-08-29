@@ -1,4 +1,6 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using ServiciiPubliceBackend.DAL;
 using ServiciiPubliceBackend.Models;
 
@@ -22,8 +24,27 @@ namespace ServiciiPubliceBackend.Repositories
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message, ex);
+                throw;
             }
+        }
+
+        public async Task<bool> EditGhiseu(Ghiseu ghiseuNou)
+        {
+            if (ghiseuNou == null)
+            {
+                throw new ArgumentNullException(nameof(ghiseuNou));
+            }
+
+            string sql = "UPDATE Ghiseu " +
+                "SET Cod = @Cod, " +
+                "Denumire = @Denumire, " +
+                "Descriere = @Descriere, " +
+                "Icon = @Icon " +
+                "WHERE Id = @Id";
+
+            var rowsAffected = await _db.ExecuteNonQueryAsync(sql, ghiseuNou);
+
+            return rowsAffected > 0;
         }
     }
 }

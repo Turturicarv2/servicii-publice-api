@@ -17,9 +17,40 @@ namespace ServiciiPubliceBackend.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<Ghiseu>> GetAllGhisee()
+        public async Task<ActionResult<IEnumerable<Ghiseu>>> GetAllGhisee()
         {
-            return await _unitOfWork.Ghisee.GetAllGhiseuAsync();
+            try
+            {
+                var result = await _unitOfWork.Ghisee.GetAllGhiseuAsync();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Internal Server Error: " + ex.Message);
+            }
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateGhiseu([FromBody] Ghiseu ghiseuNou)
+        {
+            try
+            {
+                bool updated = await _unitOfWork.Ghisee.EditGhiseu(ghiseuNou);
+
+                if (!updated)
+                {
+                    return NotFound("Ghiseu not found");
+                }
+                return Ok();
+            }
+            catch (ArgumentNullException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Internal Server Error: " + ex.Message);
+            }
         }
     }
 }
