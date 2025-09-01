@@ -13,10 +13,15 @@ namespace ServiciiPubliceBackend.Repositories
             _db = db;
         }
 
-        public async Task<IEnumerable<Bon>> GetAllBon()
+        public async Task<IEnumerable<Bon>> GetAllAsync()
         {
             string sql = "SELECT * FROM Bon";
             return await _db.ExecuteQueryAsync<Bon>(sql);
+        }
+
+        public async Task<bool> AddAsync(Bon bon)
+        {
+            return true;
         }
     }
 }

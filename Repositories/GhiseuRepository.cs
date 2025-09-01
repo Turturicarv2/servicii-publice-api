@@ -15,10 +15,20 @@ namespace ServiciiPubliceBackend.Repositories
             _db = db;
         }
 
-        public async Task<IEnumerable<Ghiseu>> GetAllGhiseuAsync()
+        public async Task<IEnumerable<Ghiseu>> GetAllAsync()
         {
             string sql = "SELECT * FROM Ghiseu";
             return await _db.ExecuteQueryAsync<Ghiseu>(sql);
+        }
+
+        public async Task<bool> AddAsync(Ghiseu ghiseuNou)
+        {
+            string sql = "INSERT INTO Ghiseu " +
+                "(Cod, Denumire, Descriere, Icon, Activ) " +
+                "VALUES (@Cod, @Denumire, @Descriere, @Icon, @Activ)";
+
+            await _db.ExecuteNonQueryAsync(sql, ghiseuNou);
+            return true;
         }
 
         public async Task<bool> EditGhiseuAsync(Ghiseu ghiseuNou)

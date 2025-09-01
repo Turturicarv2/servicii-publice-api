@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ServiciiPubliceBackend.DTOs;
 using ServiciiPubliceBackend.Models;
 using ServiciiPubliceBackend.UnitOfWork;
 
@@ -21,8 +22,41 @@ namespace ServiciiPubliceBackend.Controllers
         {
             try
             {
-                var result = await _unitOfWork.Ghisee.GetAllGhiseuAsync();
+                var result = await _unitOfWork.Ghisee.GetAllAsync();
                 return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Internal Server Error: " + ex.Message);
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddGhiseu([FromBody] CreateGhiseuDTO dto)
+        {
+            if (dto == null)
+            {
+                return BadRequest("Invalid Input");
+            }
+
+            try
+            {
+                Ghiseu ghiseu = new Ghiseu
+                {
+                    Cod = dto.Cod,
+                    Denumire = dto.Denumire,
+                    Descriere = dto.Descriere,
+                    Icon = dto.Icon,
+                    Activ = dto.Activ
+                };
+                bool added = await _unitOfWork.Ghisee.AddAsync(ghiseu);
+
+                if (!added)
+                {
+                    return StatusCode(500, "Failed to add ghiseu");
+                }
+
+                return Ok();
             }
             catch (Exception ex)
             {

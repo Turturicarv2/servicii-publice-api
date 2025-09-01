@@ -2,8 +2,7 @@
 
 namespace ServiciiPubliceBackend.Repositories
 {
-    public interface IBonRepository
+    public interface IBonRepository : IBaseRepository<Bon>
     {
-        Task<IEnumerable<Bon>> GetAllBon();
     }
 }

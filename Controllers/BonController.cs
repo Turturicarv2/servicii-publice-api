@@ -18,7 +18,7 @@ namespace ServiciiPubliceBackend.Controllers
         [HttpGet]
         public async Task<IEnumerable<Bon>> GetAllBonuri()
         {
-            return await _unitOfWork.Bonuri.GetAllBon();
+            return await _unitOfWork.Bonuri.GetAllAsync();
         }
     }
 }
