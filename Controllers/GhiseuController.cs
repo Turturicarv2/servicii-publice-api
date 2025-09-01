@@ -47,7 +47,7 @@ namespace ServiciiPubliceBackend.Controllers
                     Denumire = dto.Denumire,
                     Descriere = dto.Descriere,
                     Icon = dto.Icon,
-                    Activ = dto.Activ
+                    Activ = false
                 };
                 bool added = await _unitOfWork.Ghisee.AddAsync(ghiseu);
 

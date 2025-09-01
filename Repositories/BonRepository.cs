@@ -21,6 +21,11 @@ namespace ServiciiPubliceBackend.Repositories
 
         public async Task<bool> AddAsync(Bon bon)
         {
+            string sql = "INSERT INTO Bon " +
+                "(IdGhiseu, Stare, CreatedAt) " +
+                "VALUES (@IdGhiseu, @Stare, @CreatedAt)";
+
+            await _db.ExecuteNonQueryAsync(sql, bon);
             return true;
         }
     }

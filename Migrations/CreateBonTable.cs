@@ -12,7 +12,7 @@ namespace ServiciiPubliceBackend.Migrations
                 .WithColumn("IdGhiseu").AsInt32().NotNullable()
                 .WithColumn("Stare").AsString(20).NotNullable()
                 .WithColumn("CreatedAt").AsDateTime().NotNullable()
-                .WithColumn("ModifiedAt").AsDateTime();
+                .WithColumn("ModifiedAt").AsDateTime().Nullable();
 
             Create.ForeignKey("FK_Orders_Ghiseu")
                 .FromTable("Bon").ForeignColumn("IdGhiseu")
