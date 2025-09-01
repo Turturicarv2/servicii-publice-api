@@ -2,8 +2,10 @@
 
 namespace ServiciiPubliceBackend.Repositories
 {
-    public interface IBonRepository
+    public interface IBonRepository : IBaseRepository<Bon>
     {
-        Task<IEnumerable<Bon>> GetAllBon();
+        Task<bool> MarkBonAsInProgressAsync(int id);
+        Task<bool> MarkBonAsRecievedAsync(int id);
+        Task<bool> MarkBonAsClosedAsync(int id);
     }
 }

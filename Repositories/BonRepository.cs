@@ -1,4 +1,5 @@
-﻿using ServiciiPubliceBackend.DAL;
+﻿using Microsoft.AspNetCore.Mvc;
+using ServiciiPubliceBackend.DAL;
 using ServiciiPubliceBackend.Models;
 using System.Threading.Tasks;
 
@@ -13,17 +14,50 @@ namespace ServiciiPubliceBackend.Repositories
             _db = db;
         }
 
-        public async Task<IEnumerable<Bon>> GetAllBon()
+        public async Task<IEnumerable<Bon>> GetAllAsync()
         {
-            try
-            {
-                string sql = "SELECT * FROM Bon";
-                return await _db.ExecuteQueryAsync<Bon>(sql);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message, ex);
-            }
+            string sql = "SELECT * FROM Bon";
+            return await _db.ExecuteQueryAsync<Bon>(sql);
+        }
+
+        public async Task<bool> AddAsync(Bon bon)
+        {
+            string sql = "INSERT INTO Bon " +
+                "(IdGhiseu, Stare, CreatedAt) " +
+                "VALUES (@IdGhiseu, @Stare, @CreatedAt)";
+
+            await _db.ExecuteNonQueryAsync(sql, bon);
+            return true;
+        }
+
+        public async Task<bool> MarkBonAsInProgressAsync(int id)
+        {
+            string sql = "UPDATE Bon " +
+                "SET Stare = @Stare, ModifiedAt = @ModifiedAt " +
+                "WHERE Id = @Id";
+
+            await _db.ExecuteNonQueryAsync(sql, new { Id = id, Stare = "in asteptare", ModifiedAt = DateTime.Now });
+            return true;
+        }
+
+        public async Task<bool> MarkBonAsRecievedAsync(int id)
+        {
+            string sql = "UPDATE Bon " +
+                "SET Stare = @Stare, ModifiedAt = @ModifiedAt " +
+                "WHERE Id = @Id";
+
+            await _db.ExecuteNonQueryAsync(sql, new { Id = id, Stare = "preluat", ModifiedAt = DateTime.Now });
+            return true;
+        }
+
+        public async Task<bool> MarkBonAsClosedAsync(int id)
+        {
+            string sql = "UPDATE Bon " +
+                "SET Stare = @Stare, ModifiedAt = @ModifiedAt " +
+                "WHERE Id = @Id";
+
+            await _db.ExecuteNonQueryAsync(sql, new { Id = id, Stare = "inchis", ModifiedAt = DateTime.Now });
+            return true;
         }
     }
 }

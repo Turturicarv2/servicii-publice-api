@@ -1,4 +1,6 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using ServiciiPubliceBackend.DAL;
 using ServiciiPubliceBackend.Models;
 
@@ -13,17 +15,68 @@ namespace ServiciiPubliceBackend.Repositories
             _db = db;
         }
 
-        public async Task<IEnumerable<Ghiseu>> GetAllGhiseuAsync()
+        public async Task<IEnumerable<Ghiseu>> GetAllAsync()
         {
-            try
+            string sql = "SELECT * FROM Ghiseu";
+            return await _db.ExecuteQueryAsync<Ghiseu>(sql);
+        }
+
+        public async Task<bool> AddAsync(Ghiseu ghiseuNou)
+        {
+            string sql = "INSERT INTO Ghiseu " +
+                "(Cod, Denumire, Descriere, Icon, Activ) " +
+                "VALUES (@Cod, @Denumire, @Descriere, @Icon, @Activ)";
+
+            await _db.ExecuteNonQueryAsync(sql, ghiseuNou);
+            return true;
+        }
+
+        public async Task<bool> EditGhiseuAsync(Ghiseu ghiseuNou)
+        {
+            if (ghiseuNou == null)
             {
-                string sql = "SELECT * FROM Ghiseu";
-                return await _db.ExecuteQueryAsync<Ghiseu>(sql);
+                throw new ArgumentNullException(nameof(ghiseuNou));
             }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message, ex);
-            }
+
+            string sql = "UPDATE Ghiseu " +
+                "SET Cod = @Cod, " +
+                "Denumire = @Denumire, " +
+                "Descriere = @Descriere, " +
+                "Icon = @Icon " +
+                "WHERE Id = @Id";
+
+            var rowsAffected = await _db.ExecuteNonQueryAsync(sql, ghiseuNou);
+
+            return rowsAffected > 0;
+        }
+
+        public async Task<bool> MarkGhiseuAsActiveAsync(int Id)
+        {
+            string sql = "UPDATE Ghiseu " +
+                "SET Activ = 1 " +
+                "WHERE Id = @Id";
+
+            var rowsAffected = await _db.ExecuteNonQueryAsync(sql, new { Id });
+            return rowsAffected > 0;
+        }
+
+        public async Task<bool> MarkGhiseuAsInactiveAsync(int Id)
+        {
+            string sql = "UPDATE Ghiseu " +
+                "SET Activ = 0 " +
+                "WHERE Id = @Id";
+
+            var rowsAffected = await _db.ExecuteNonQueryAsync(sql, new { Id });
+            return rowsAffected > 0;
+        }
+
+        public async Task<bool> DeleteGhiseuAsync(int Id)
+        {
+            string sql = "DELETE FROM Ghiseu " +
+                "WHERE Id = @Id";
+
+            var rowsAffected = await _db.ExecuteNonQueryAsync(sql, new { Id });
+            return rowsAffected > 0;
         }
     }
 }
