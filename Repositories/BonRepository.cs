@@ -1,4 +1,5 @@
-﻿using ServiciiPubliceBackend.DAL;
+﻿using Microsoft.AspNetCore.Mvc;
+using ServiciiPubliceBackend.DAL;
 using ServiciiPubliceBackend.Models;
 using System.Threading.Tasks;
 
@@ -26,6 +27,36 @@ namespace ServiciiPubliceBackend.Repositories
                 "VALUES (@IdGhiseu, @Stare, @CreatedAt)";
 
             await _db.ExecuteNonQueryAsync(sql, bon);
+            return true;
+        }
+
+        public async Task<bool> MarkBonAsInProgressAsync(int id)
+        {
+            string sql = "UPDATE Bon " +
+                "SET Stare = 'in asteptare', ModifiedAt = @ModifiedAt " +
+                "WHERE Id = @Id";
+
+            await _db.ExecuteNonQueryAsync(sql, new { Id = id, ModifiedAt = DateTime.Now });
+            return true;
+        }
+
+        public async Task<bool> MarkBonAsRecievedAsync(int id)
+        {
+            string sql = "UPDATE Bon " +
+                "SET Stare = 'preluat', ModifiedAt = @ModifiedAt " +
+                "WHERE Id = @Id";
+
+            await _db.ExecuteNonQueryAsync(sql, new { Id = id, ModifiedAt = DateTime.Now });
+            return true;
+        }
+
+        public async Task<bool> MarkBonAsClosedAsync(int id)
+        {
+            string sql = "UPDATE Bon " +
+                "SET Stare = 'inchis', ModifiedAt = @ModifiedAt " +
+                "WHERE Id = @Id";
+
+            await _db.ExecuteNonQueryAsync(sql, new { Id = id, ModifiedAt = DateTime.Now });
             return true;
         }
     }
