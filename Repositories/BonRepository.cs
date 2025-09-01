@@ -33,30 +33,30 @@ namespace ServiciiPubliceBackend.Repositories
         public async Task<bool> MarkBonAsInProgressAsync(int id)
         {
             string sql = "UPDATE Bon " +
-                "SET Stare = 'in asteptare', ModifiedAt = @ModifiedAt " +
+                "SET Stare = @Stare, ModifiedAt = @ModifiedAt " +
                 "WHERE Id = @Id";
 
-            await _db.ExecuteNonQueryAsync(sql, new { Id = id, ModifiedAt = DateTime.Now });
+            await _db.ExecuteNonQueryAsync(sql, new { Id = id, Stare = "in asteptare", ModifiedAt = DateTime.Now });
             return true;
         }
 
         public async Task<bool> MarkBonAsRecievedAsync(int id)
         {
             string sql = "UPDATE Bon " +
-                "SET Stare = 'preluat', ModifiedAt = @ModifiedAt " +
+                "SET Stare = @Stare, ModifiedAt = @ModifiedAt " +
                 "WHERE Id = @Id";
 
-            await _db.ExecuteNonQueryAsync(sql, new { Id = id, ModifiedAt = DateTime.Now });
+            await _db.ExecuteNonQueryAsync(sql, new { Id = id, Stare = "preluat", ModifiedAt = DateTime.Now });
             return true;
         }
 
         public async Task<bool> MarkBonAsClosedAsync(int id)
         {
             string sql = "UPDATE Bon " +
-                "SET Stare = 'inchis', ModifiedAt = @ModifiedAt " +
+                "SET Stare = @Stare, ModifiedAt = @ModifiedAt " +
                 "WHERE Id = @Id";
 
-            await _db.ExecuteNonQueryAsync(sql, new { Id = id, ModifiedAt = DateTime.Now });
+            await _db.ExecuteNonQueryAsync(sql, new { Id = id, Stare = "inchis", ModifiedAt = DateTime.Now });
             return true;
         }
     }
