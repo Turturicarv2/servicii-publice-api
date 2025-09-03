@@ -32,7 +32,7 @@ namespace ServiciiPubliceBackend.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddGhiseu([FromBody] CreateGhiseuDTO dto)
+        public async Task<ActionResult<int>> AddGhiseu([FromBody] CreateGhiseuDTO dto)
         {
             if (dto == null)
             {
@@ -49,14 +49,9 @@ namespace ServiciiPubliceBackend.Controllers
                     Icon = dto.Icon,
                     Activ = false
                 };
-                bool added = await _unitOfWork.Ghisee.AddAsync(ghiseu);
+                int id = await _unitOfWork.Ghisee.AddAsync(ghiseu);
 
-                if (!added)
-                {
-                    return StatusCode(500, "Failed to add ghiseu");
-                }
-
-                return Ok();
+                return Ok(id);
             }
             catch (Exception ex)
             {

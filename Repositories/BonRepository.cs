@@ -20,14 +20,15 @@ namespace ServiciiPubliceBackend.Repositories
             return await _db.ExecuteQueryAsync<Bon>(sql);
         }
 
-        public async Task<bool> AddAsync(Bon bon)
+        public async Task<int> AddAsync(Bon bon)
         {
             string sql = "INSERT INTO Bon " +
                 "(IdGhiseu, Stare, CreatedAt) " +
+                "OUTPUT INSERTED.Id " +
                 "VALUES (@IdGhiseu, @Stare, @CreatedAt)";
 
-            await _db.ExecuteNonQueryAsync(sql, bon);
-            return true;
+            var response = await _db.ExecuteQueryAsync<int>(sql, bon);
+            return response.FirstOrDefault();
         }
 
         public async Task<bool> MarkBonAsInProgressAsync(int id)
