@@ -25,6 +25,7 @@ namespace ServiciiPubliceBackend.Repositories
         {
             string sql = "INSERT INTO Ghiseu " +
                 "(Cod, Denumire, Descriere, Icon, Activ) " +
+                "OUTPUT INSERTED.Id " +
                 "VALUES (@Cod, @Denumire, @Descriere, @Icon, @Activ)";
 
             var response = await _db.ExecuteQueryAsync<int>(sql, ghiseuNou);
