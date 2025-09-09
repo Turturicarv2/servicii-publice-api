@@ -9,7 +9,7 @@ namespace ServiciiPubliceBackend.DAL
 
         public DbAccess(IConfiguration config)
         {
-            _connectionString = config.GetConnectionString("Default");
+            _connectionString = config.GetConnectionString("Default")!;
         }
 
         public async Task<int> ExecuteNonQueryAsync(string sql, object? parameters = null)

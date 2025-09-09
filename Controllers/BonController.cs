@@ -31,7 +31,7 @@ namespace ServiciiPubliceBackend.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateBon(int ghiseuId)
+        public async Task<ActionResult<int>> CreateBon([FromBody] int ghiseuId)
         {
             try
             {
@@ -42,14 +42,9 @@ namespace ServiciiPubliceBackend.Controllers
                     CreatedAt = DateTime.Now
                 };
 
-                bool created = await _unitOfWork.Bonuri.AddAsync(bon);
+                int id = await _unitOfWork.Bonuri.AddAsync(bon);
 
-                if (!created)
-                {
-                    return StatusCode(500, "Failed to add ghiseu");
-                }
-
-                return Ok();
+                return Ok(id);
             }
             catch (Exception ex)
             {

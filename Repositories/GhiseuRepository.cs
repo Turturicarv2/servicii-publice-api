@@ -21,14 +21,15 @@ namespace ServiciiPubliceBackend.Repositories
             return await _db.ExecuteQueryAsync<Ghiseu>(sql);
         }
 
-        public async Task<bool> AddAsync(Ghiseu ghiseuNou)
+        public async Task<int> AddAsync(Ghiseu ghiseuNou)
         {
             string sql = "INSERT INTO Ghiseu " +
                 "(Cod, Denumire, Descriere, Icon, Activ) " +
+                "OUTPUT INSERTED.Id " +
                 "VALUES (@Cod, @Denumire, @Descriere, @Icon, @Activ)";
 
-            await _db.ExecuteNonQueryAsync(sql, ghiseuNou);
-            return true;
+            var response = await _db.ExecuteQueryAsync<int>(sql, ghiseuNou);
+            return response.FirstOrDefault();
         }
 
         public async Task<bool> EditGhiseuAsync(Ghiseu ghiseuNou)
