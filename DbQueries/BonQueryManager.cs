@@ -3,6 +3,8 @@
     public class BonQueryManager
     {
         public string getAllBonQuery = "SELECT * FROM Bon";
+        public string getAllBonByGhiseuIdQuery = "SELECT * FROM Bon " +
+            "WHERE IdGhiseu = @IdGhiseu";
         public string addBonQuery = "INSERT INTO Bon " +
                 "(IdGhiseu, Stare, CreatedAt) " +
                 "OUTPUT INSERTED.Id " +

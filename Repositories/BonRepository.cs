@@ -23,6 +23,12 @@ namespace ServiciiPubliceBackend.Repositories
             return await _db.ExecuteQueryAsync<Bon>(sql);
         }
 
+        public async Task<IEnumerable<Bon>> GetAllByGhiseuIdAsync(int IdGhiseu)
+        {
+            string sql = _queryManager.getAllBonByGhiseuIdQuery;
+            return await _db.ExecuteQueryAsync<Bon>(sql, new { IdGhiseu });
+        }
+
         public async Task<int> AddAsync(Bon bon)
         {
             string sql = _queryManager.addBonQuery;

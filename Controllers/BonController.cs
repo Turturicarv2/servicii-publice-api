@@ -30,6 +30,20 @@ namespace ServiciiPubliceBackend.Controllers
             }
         }
 
+        [HttpGet("{GhiseuId}")]
+        public async Task<ActionResult<IEnumerable<Bon>>> GetAllBonuriByGhiseuId(int GhiseuId)
+        {
+            try
+            {
+                var result = await _unitOfWork.Bonuri.GetAllByGhiseuIdAsync(GhiseuId);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Internal Server Error: " + ex.Message);
+            }
+        }
+
         [HttpPost]
         public async Task<ActionResult<int>> CreateBon([FromBody] int ghiseuId)
         {
