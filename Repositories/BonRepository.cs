@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ServiciiPubliceBackend.DAL;
+using ServiciiPubliceBackend.DbQueries;
 using ServiciiPubliceBackend.Models;
 using System.Threading.Tasks;
 
@@ -8,24 +9,23 @@ namespace ServiciiPubliceBackend.Repositories
     public class BonRepository : IBonRepository
     {
         private readonly IDbAccess _db;
+        private BonQueryManager _queryManager;
 
         public BonRepository(IDbAccess db)
         {
             _db = db;
+            _queryManager = new BonQueryManager();
         }
 
         public async Task<IEnumerable<Bon>> GetAllAsync()
         {
-            string sql = "SELECT * FROM Bon";
+            string sql = _queryManager.getAllBonQuery;
             return await _db.ExecuteQueryAsync<Bon>(sql);
         }
 
         public async Task<int> AddAsync(Bon bon)
         {
-            string sql = "INSERT INTO Bon " +
-                "(IdGhiseu, Stare, CreatedAt) " +
-                "OUTPUT INSERTED.Id " +
-                "VALUES (@IdGhiseu, @Stare, @CreatedAt)";
+            string sql = _queryManager.addBonQuery;
 
             var response = await _db.ExecuteQueryAsync<int>(sql, bon);
             return response.FirstOrDefault();
@@ -33,9 +33,7 @@ namespace ServiciiPubliceBackend.Repositories
 
         public async Task<bool> MarkBonAsInProgressAsync(int id)
         {
-            string sql = "UPDATE Bon " +
-                "SET Stare = @Stare, ModifiedAt = @ModifiedAt " +
-                "WHERE Id = @Id";
+            string sql = _queryManager.markBonInProgressQuery;
 
             await _db.ExecuteNonQueryAsync(sql, new { Id = id, Stare = "in asteptare", ModifiedAt = DateTime.Now });
             return true;
@@ -43,9 +41,7 @@ namespace ServiciiPubliceBackend.Repositories
 
         public async Task<bool> MarkBonAsRecievedAsync(int id)
         {
-            string sql = "UPDATE Bon " +
-                "SET Stare = @Stare, ModifiedAt = @ModifiedAt " +
-                "WHERE Id = @Id";
+            string sql = _queryManager.markBonReceivedQuery;
 
             await _db.ExecuteNonQueryAsync(sql, new { Id = id, Stare = "preluat", ModifiedAt = DateTime.Now });
             return true;
@@ -53,9 +49,7 @@ namespace ServiciiPubliceBackend.Repositories
 
         public async Task<bool> MarkBonAsClosedAsync(int id)
         {
-            string sql = "UPDATE Bon " +
-                "SET Stare = @Stare, ModifiedAt = @ModifiedAt " +
-                "WHERE Id = @Id";
+            string sql = _queryManager.markBonClosedQuery;
 
             await _db.ExecuteNonQueryAsync(sql, new { Id = id, Stare = "inchis", ModifiedAt = DateTime.Now });
             return true;
