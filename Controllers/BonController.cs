@@ -45,15 +45,16 @@ namespace ServiciiPubliceBackend.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<int>> CreateBon([FromBody] int ghiseuId)
+        public async Task<ActionResult<int>> CreateBon([FromBody] CreateBonDTO bonDTO)
         {
             try
             {
                 Bon bon = new Bon
                 {
-                    IdGhiseu = ghiseuId,
+                    IdGhiseu = bonDTO.GhiseuId,
                     Stare = "in asteptare",
-                    CreatedAt = DateTime.Now
+                    CreatedAt = DateTime.Now,
+                    UserId = bonDTO.UserId
                 };
 
                 int id = await _unitOfWork.Bonuri.AddAsync(bon);
