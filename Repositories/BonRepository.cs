@@ -41,24 +41,24 @@ namespace ServiciiPubliceBackend.Repositories
         {
             string sql = _queryManager.markBonInProgressQuery;
 
-            await _db.ExecuteNonQueryAsync(sql, new { Id = id, Stare = "in asteptare", ModifiedAt = DateTime.Now });
-            return true;
+            var rowsAffected = await _db.ExecuteNonQueryAsync(sql, new { Id = id, Stare = "in asteptare", ModifiedAt = DateTime.Now });
+            return rowsAffected > 0;
         }
 
         public async Task<bool> MarkBonAsRecievedAsync(int id)
         {
             string sql = _queryManager.markBonReceivedQuery;
 
-            await _db.ExecuteNonQueryAsync(sql, new { Id = id, Stare = "preluat", ModifiedAt = DateTime.Now });
-            return true;
+            var rowsAffected = await _db.ExecuteNonQueryAsync(sql, new { Id = id, Stare = "preluat", ModifiedAt = DateTime.Now });
+            return rowsAffected > 0;
         }
 
         public async Task<bool> MarkBonAsClosedAsync(int id)
         {
             string sql = _queryManager.markBonClosedQuery;
 
-            await _db.ExecuteNonQueryAsync(sql, new { Id = id, Stare = "inchis", ModifiedAt = DateTime.Now });
-            return true;
+            var rowsAffected = await _db.ExecuteNonQueryAsync(sql, new { Id = id, Stare = "inchis", ModifiedAt = DateTime.Now });
+            return rowsAffected > 0;
         }
     }
 }
