@@ -6,5 +6,6 @@ namespace ServiciiPubliceBackend.UnitOfWork
     {
         IBonRepository Bonuri { get; }
         IGhiseuRepository Ghisee { get; }
+        IUserRepository Users { get; }
     }
 }

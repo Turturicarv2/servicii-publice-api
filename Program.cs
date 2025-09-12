@@ -32,6 +32,7 @@ builder.Services.AddFluentMigratorCore()
 builder.Services.AddScoped<IDbAccess, DbAccess>();
 builder.Services.AddScoped<IBonRepository, BonRepository>();
 builder.Services.AddScoped<IGhiseuRepository, GhiseuRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 var app = builder.Build();
