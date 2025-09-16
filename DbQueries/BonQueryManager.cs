@@ -6,9 +6,9 @@
         public string getAllBonByGhiseuIdQuery = "SELECT * FROM Bon " +
             "WHERE IdGhiseu = @IdGhiseu";
         public string addBonQuery = "INSERT INTO Bon " +
-                "(IdGhiseu, Stare, CreatedAt, UserId) " +
+                "(IdGhiseu, Stare, CreatedAt) " +
                 "OUTPUT INSERTED.Id " +
-                "VALUES (@IdGhiseu, @Stare, @CreatedAt, @UserId)";
+                "VALUES (@IdGhiseu, @Stare, @CreatedAt)";
         public string markBonInProgressQuery = "UPDATE Bon " +
                 "SET Stare = @Stare, ModifiedAt = @ModifiedAt " +
                 "WHERE Id = @Id";

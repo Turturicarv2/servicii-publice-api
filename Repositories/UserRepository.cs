@@ -1,5 +1,6 @@
 ﻿using ServiciiPubliceBackend.DAL;
 using ServiciiPubliceBackend.DbQueries;
+using ServiciiPubliceBackend.DTOs;
 using ServiciiPubliceBackend.Models;
 
 namespace ServiciiPubliceBackend.Repositories
@@ -19,6 +20,13 @@ namespace ServiciiPubliceBackend.Repositories
 
             var rowsAffected = await _db.ExecuteNonQueryAsync(sql, user);
             return rowsAffected > 0;
+        }
+        public async Task<string> Login(CreateUserDTO userDTO)
+        {
+            string sql = _queryManager.loginUserQuery;
+
+            var result = await _db.ExecuteQueryAsync<string>(sql, userDTO);
+            return result.FirstOrDefault()!;
         }
     }
 }

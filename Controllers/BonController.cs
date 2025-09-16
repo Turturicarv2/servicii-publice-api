@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ServiciiPubliceBackend.DTOs;
 using ServiciiPubliceBackend.Models;
 using ServiciiPubliceBackend.UnitOfWork;
 
 namespace ServiciiPubliceBackend.Controllers
 {
+    [Authorize]
     [Route("api/[Controller]/[Action]")]
     [ApiController]
     public class BonController : ControllerBase
@@ -16,6 +18,7 @@ namespace ServiciiPubliceBackend.Controllers
             _unitOfWork = unitOfWork;
         }
 
+        [Authorize(Roles = "admin")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Bon>>> GetAllBonuri()
         {
@@ -30,6 +33,7 @@ namespace ServiciiPubliceBackend.Controllers
             }
         }
 
+        [Authorize(Roles = "admin")]
         [HttpGet("{GhiseuId}")]
         public async Task<ActionResult<IEnumerable<Bon>>> GetAllBonuriByGhiseuId(int GhiseuId)
         {
@@ -45,16 +49,15 @@ namespace ServiciiPubliceBackend.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<int>> CreateBon([FromBody] CreateBonDTO bonDTO)
+        public async Task<ActionResult<int>> CreateBon([FromBody] int ghiseuId)
         {
             try
             {
                 Bon bon = new Bon
                 {
-                    IdGhiseu = bonDTO.GhiseuId,
+                    IdGhiseu = ghiseuId,
                     Stare = "in asteptare",
-                    CreatedAt = DateTime.Now,
-                    UserId = bonDTO.UserId
+                    CreatedAt = DateTime.Now
                 };
 
                 int id = await _unitOfWork.Bonuri.AddAsync(bon);
@@ -67,6 +70,7 @@ namespace ServiciiPubliceBackend.Controllers
             }
         }
 
+        [Authorize(Roles = "admin")]
         [HttpPatch("{id}")]
         public async Task<IActionResult> MarkBonAsInProgress(int id)
         {
@@ -87,6 +91,7 @@ namespace ServiciiPubliceBackend.Controllers
             }
         }
 
+        [Authorize(Roles = "admin")]
         [HttpPatch("{id}")]
         public async Task<IActionResult> MarkBonAsReceived(int id)
         {
@@ -107,6 +112,7 @@ namespace ServiciiPubliceBackend.Controllers
             }
         }
 
+        [Authorize(Roles = "admin")]
         [HttpPatch("{id}")]
         public async Task<IActionResult> MarkBonAsClosed(int id)
         {

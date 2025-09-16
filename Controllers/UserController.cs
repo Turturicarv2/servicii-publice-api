@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using ServiciiPubliceBackend.DTOs;
 using ServiciiPubliceBackend.Models;
+using ServiciiPubliceBackend.TokenManagers;
 using ServiciiPubliceBackend.UnitOfWork;
 
 namespace ServiciiPubliceBackend.Controllers
@@ -17,11 +18,25 @@ namespace ServiciiPubliceBackend.Controllers
             _unitOfWork = unitOfWork;
         }
 
-        //[HttpGet]
-        //public ActionResult Index()
-        //{
-        //    return View();
-        //}
+        [HttpPost]
+        public async Task<ActionResult<string>> LoginUser(CreateUserDTO userDTO)
+        {
+            try
+            {
+                string role = await _unitOfWork.Users.Login(userDTO);
+                if (role == null)
+                {
+                    return BadRequest("Username or password incorrect!");
+                }
+
+                var jwtToken = _unitOfWork.TokenManager.GenerateJWTToken(role);
+                return Ok(jwtToken);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Internal Server Error: " + ex.Message);
+            }
+        }
 
         [HttpPost]
         public async Task<IActionResult> CreateUser(CreateUserDTO userDTO)

@@ -1,4 +1,5 @@
 ﻿using ServiciiPubliceBackend.Repositories;
+using ServiciiPubliceBackend.TokenManagers;
 
 namespace ServiciiPubliceBackend.UnitOfWork
 {
@@ -7,5 +8,6 @@ namespace ServiciiPubliceBackend.UnitOfWork
         IBonRepository Bonuri { get; }
         IGhiseuRepository Ghisee { get; }
         IUserRepository Users { get; }
+        ITokenManager TokenManager { get; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ServiciiPubliceBackend.DTOs;
 using ServiciiPubliceBackend.Models;
@@ -6,6 +7,7 @@ using ServiciiPubliceBackend.UnitOfWork;
 
 namespace ServiciiPubliceBackend.Controllers
 {
+    [Authorize]
     [Route("api/[Controller]/[Action]")]
     [ApiController]
     public class GhiseuController : Controller
@@ -31,6 +33,7 @@ namespace ServiciiPubliceBackend.Controllers
             }
         }
 
+        [Authorize(Roles = "admin")]
         [HttpPost]
         public async Task<ActionResult<int>> AddGhiseu([FromBody] CreateGhiseuDTO dto)
         {
@@ -59,6 +62,7 @@ namespace ServiciiPubliceBackend.Controllers
             }
         }
 
+        [Authorize(Roles = "admin")]
         [HttpPut]
         public async Task<IActionResult> UpdateGhiseu([FromBody] Ghiseu ghiseuNou)
         {
@@ -82,6 +86,7 @@ namespace ServiciiPubliceBackend.Controllers
             }
         }
 
+        [Authorize(Roles = "admin")]
         [HttpPatch("{id}")]
         public async Task<IActionResult> MarkGhiseuAsActive(int id)
         {
@@ -100,6 +105,7 @@ namespace ServiciiPubliceBackend.Controllers
             }
         }
 
+        [Authorize(Roles = "admin")]
         [HttpPatch("{id}")]
         public async Task<IActionResult> MarkGhiseuAsInactive(int id)
         {
@@ -118,6 +124,7 @@ namespace ServiciiPubliceBackend.Controllers
             }
         }
 
+        [Authorize(Roles = "admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteGhiseu(int id)
         {
