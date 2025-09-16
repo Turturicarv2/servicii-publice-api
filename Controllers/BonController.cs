@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ServiciiPubliceBackend.DTOs;
 using ServiciiPubliceBackend.Models;
 using ServiciiPubliceBackend.UnitOfWork;
 
 namespace ServiciiPubliceBackend.Controllers
 {
+    [Authorize]
     [Route("api/[Controller]/[Action]")]
     [ApiController]
     public class BonController : ControllerBase
@@ -16,12 +18,28 @@ namespace ServiciiPubliceBackend.Controllers
             _unitOfWork = unitOfWork;
         }
 
+        [Authorize(Roles = "admin")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Bon>>> GetAllBonuri()
         {
             try
             {
                 var result = await _unitOfWork.Bonuri.GetAllAsync();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Internal Server Error: " + ex.Message);
+            }
+        }
+
+        [Authorize(Roles = "admin")]
+        [HttpGet("{GhiseuId}")]
+        public async Task<ActionResult<IEnumerable<Bon>>> GetAllBonuriByGhiseuId(int GhiseuId)
+        {
+            try
+            {
+                var result = await _unitOfWork.Bonuri.GetAllByGhiseuIdAsync(GhiseuId);
                 return Ok(result);
             }
             catch (Exception ex)
@@ -52,6 +70,7 @@ namespace ServiciiPubliceBackend.Controllers
             }
         }
 
+        [Authorize(Roles = "admin")]
         [HttpPatch("{id}")]
         public async Task<IActionResult> MarkBonAsInProgress(int id)
         {
@@ -72,6 +91,7 @@ namespace ServiciiPubliceBackend.Controllers
             }
         }
 
+        [Authorize(Roles = "admin")]
         [HttpPatch("{id}")]
         public async Task<IActionResult> MarkBonAsReceived(int id)
         {
@@ -92,6 +112,7 @@ namespace ServiciiPubliceBackend.Controllers
             }
         }
 
+        [Authorize(Roles = "admin")]
         [HttpPatch("{id}")]
         public async Task<IActionResult> MarkBonAsClosed(int id)
         {

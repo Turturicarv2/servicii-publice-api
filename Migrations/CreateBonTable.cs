@@ -14,7 +14,7 @@ namespace ServiciiPubliceBackend.Migrations
                 .WithColumn("CreatedAt").AsDateTime().NotNullable()
                 .WithColumn("ModifiedAt").AsDateTime().Nullable();
 
-            Create.ForeignKey("FK_Orders_Ghiseu")
+            Create.ForeignKey("FK_Bon_Ghiseu")
                 .FromTable("Bon").ForeignColumn("IdGhiseu")
                 .ToTable("Ghiseu").PrimaryColumn("Id")
                 .OnDeleteOrUpdate(System.Data.Rule.Cascade);
@@ -28,8 +28,8 @@ namespace ServiciiPubliceBackend.Migrations
 
         public override void Down()
         {
-            Delete.ForeignKey("FK_Orders_Ghiseu").OnTable("Orders");
-            Delete.Table("Orders");
+            Delete.ForeignKey("FK_Bon_Ghiseu").OnTable("Bon");
+            Delete.Table("Bon");
         }
     }
 }
