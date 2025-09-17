@@ -1,35 +1,31 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using ServiciiPubliceBackend.DAL;
-using ServiciiPubliceBackend.DbQueries;
 using ServiciiPubliceBackend.Models;
 
 namespace ServiciiPubliceBackend.Repositories
 {
     public class GhiseuRepository : IGhiseuRepository
     {
-        private readonly IDbAccess _db;
-        private GhiseuQueryManager _queryManager;
+        private readonly AppDbContext _dbContext;
 
-        public GhiseuRepository(IDbAccess db)
+        public GhiseuRepository(AppDbContext appDbContext)
         {
-            _db = db;
-            _queryManager = new GhiseuQueryManager();
+            _dbContext = appDbContext;
         }
 
         public async Task<IEnumerable<Ghiseu>> GetAllAsync()
         {
-            string sql = _queryManager.getAllGhiseeQuery;
-            return await _db.ExecuteQueryAsync<Ghiseu>(sql);
+            return await _dbContext.Ghiseu.ToListAsync();
         }
 
         public async Task<int> AddAsync(Ghiseu ghiseuNou)
         {
-            string sql = _queryManager.addGhiseuQuery;
-
-            var response = await _db.ExecuteQueryAsync<int>(sql, ghiseuNou);
-            return response.FirstOrDefault();
+            _dbContext.Add(ghiseuNou);
+            await _dbContext.SaveChangesAsync();
+            return ghiseuNou.Id;
         }
 
         public async Task<bool> EditGhiseuAsync(Ghiseu ghiseuNou)
@@ -39,35 +35,46 @@ namespace ServiciiPubliceBackend.Repositories
                 throw new ArgumentNullException(nameof(ghiseuNou));
             }
 
-            string sql = _queryManager.editGhiseuQuery;
+            var existing = await _dbContext.Ghiseu.FindAsync(ghiseuNou.Id);
+            if (existing == null)
+            {
+                return false; 
+            }
 
-            var rowsAffected = await _db.ExecuteNonQueryAsync(sql, ghiseuNou);
+            existing.Cod = ghiseuNou.Cod;
+            existing.Denumire = ghiseuNou.Denumire;
+            existing.Descriere = ghiseuNou.Descriere;
+            existing.Icon = ghiseuNou.Icon;
 
-            return rowsAffected > 0;
+            return await _dbContext.SaveChangesAsync() > 0;
         }
 
         public async Task<bool> MarkGhiseuAsActiveAsync(int Id)
         {
-            string sql = _queryManager.markGhiseuActiveQuery;
+            var ghiseu = await _dbContext.Ghiseu.FindAsync(Id);
+            if (ghiseu == null)
+                return false;
 
-            var rowsAffected = await _db.ExecuteNonQueryAsync(sql, new { Id });
-            return rowsAffected > 0;
+            ghiseu.Activ = true;
+
+            return await _dbContext.SaveChangesAsync() > 0;
         }
 
         public async Task<bool> MarkGhiseuAsInactiveAsync(int Id)
         {
-            string sql = _queryManager.markGhiseuInactiveQuery;
+            var ghiseu = await _dbContext.Ghiseu.FindAsync(Id);
+            if (ghiseu == null)
+                return false;
 
-            var rowsAffected = await _db.ExecuteNonQueryAsync(sql, new { Id });
-            return rowsAffected > 0;
+            ghiseu.Activ = false;
+
+            return await _dbContext.SaveChangesAsync() > 0;
         }
 
         public async Task<bool> DeleteGhiseuAsync(int Id)
         {
-            string sql = _queryManager.deleteGhiseuQuery;
-
-            var rowsAffected = await _db.ExecuteNonQueryAsync(sql, new { Id });
-            return rowsAffected > 0;
+            _dbContext.Remove(Id);
+            return await _dbContext.SaveChangesAsync() > 0;
         }
     }
 }

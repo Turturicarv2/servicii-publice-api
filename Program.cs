@@ -1,6 +1,5 @@
-using FluentMigrator.Runner;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using ServiciiPubliceBackend.DAL;
 using ServiciiPubliceBackend.Repositories;
@@ -52,14 +51,16 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddFluentMigratorCore()
-    .ConfigureRunner(rb => rb
-        .AddSqlServer()
-        .WithGlobalConnectionString(builder.Configuration.GetConnectionString("Default"))
-        .ScanIn(typeof(Program).Assembly).For.Migrations())
-    .AddLogging(lb => lb.AddFluentMigratorConsole());
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
 
-builder.Services.AddScoped<IDbAccess, DbAccess>();
+//builder.Services.AddFluentMigratorCore()
+//    .ConfigureRunner(rb => rb
+//        .AddSqlServer()
+//        .WithGlobalConnectionString(builder.Configuration.GetConnectionString("Default"))
+//        .ScanIn(typeof(Program).Assembly).For.Migrations())
+//    .AddLogging(lb => lb.AddFluentMigratorConsole());
+
 builder.Services.AddScoped<IBonRepository, BonRepository>();
 builder.Services.AddScoped<IGhiseuRepository, GhiseuRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
@@ -79,12 +80,6 @@ app.UseCors();
 
 app.UseAuthentication();
 app.UseAuthorization();
-
-using (var scope = app.Services.CreateScope())
-{
-    var runner = scope.ServiceProvider.GetRequiredService<IMigrationRunner>();
-    runner.MigrateUp();
-}
 
 app.MapControllers();
 

@@ -1,5 +1,5 @@
-﻿using ServiciiPubliceBackend.DAL;
-using ServiciiPubliceBackend.DbQueries;
+﻿using Microsoft.EntityFrameworkCore;
+using ServiciiPubliceBackend.DAL;
 using ServiciiPubliceBackend.DTOs;
 using ServiciiPubliceBackend.Models;
 
@@ -7,26 +7,24 @@ namespace ServiciiPubliceBackend.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        private readonly IDbAccess _db;
-        private readonly UserQueryManager _queryManager;
-        public UserRepository(IDbAccess db) 
+        private readonly AppDbContext _dbContext;
+        public UserRepository(AppDbContext appDbContext) 
         {
-            _queryManager = new UserQueryManager();
-            _db = db;
+            _dbContext = appDbContext;
         }
         public async Task<bool> AddUserAsync(User user) 
         {
-            string sql = _queryManager.addUserQuery;
-
-            var rowsAffected = await _db.ExecuteNonQueryAsync(sql, user);
-            return rowsAffected > 0;
+            _dbContext.Users.Add(user);
+            return await _dbContext.SaveChangesAsync() > 0;
         }
         public async Task<string> Login(CreateUserDTO userDTO)
         {
-            string sql = _queryManager.loginUserQuery;
+            var role = await _dbContext.Users
+                .Where(u => u.Username == userDTO.Username && u.Password == userDTO.Password)
+                .Select(u => u.Role)
+                .FirstOrDefaultAsync();
 
-            var result = await _db.ExecuteQueryAsync<string>(sql, userDTO);
-            return result.FirstOrDefault()!;
+            return role!;
         }
     }
 }
