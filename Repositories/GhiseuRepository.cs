@@ -73,7 +73,11 @@ namespace ServiciiPubliceBackend.Repositories
 
         public async Task<bool> DeleteGhiseuAsync(int Id)
         {
-            _dbContext.Remove(Id);
+            var ghiseu = await _dbContext.Ghiseu.FindAsync(Id);
+            if (ghiseu == null)
+                return false;
+
+            _dbContext.Remove(ghiseu);
             return await _dbContext.SaveChangesAsync() > 0;
         }
     }
