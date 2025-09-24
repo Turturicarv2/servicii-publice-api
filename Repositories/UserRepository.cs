@@ -1,37 +1,39 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Hangfire;
+using Microsoft.EntityFrameworkCore;
+using Serilog;
 using ServiciiPubliceBackend.DAL;
 using ServiciiPubliceBackend.DTOs;
 using ServiciiPubliceBackend.Models;
+using ServiciiPubliceBackend.Loggers;
 
 namespace ServiciiPubliceBackend.Repositories
 {
     public class UserRepository : IUserRepository
     {
         private readonly AppDbContext _dbContext;
-        private readonly ILogger<UserRepository> _logger;
-        public UserRepository(AppDbContext appDbContext, ILogger<UserRepository> logger)
+        public UserRepository(AppDbContext appDbContext)
         {
             _dbContext = appDbContext;
-            _logger = logger;
         }
 
         public async Task<bool> AddUserAsync(User user) 
         {
-            _logger.LogInformation("Creating user to database...");
+            Hangfire.BackgroundJob.Enqueue(() => Logger.LogInformation("Creating user to database..."));
             _dbContext.Users.Add(user);
-            _logger.LogInformation("User created!");
+
+            Hangfire.BackgroundJob.Enqueue(() => Logger.LogInformation("User created!"));
             return await _dbContext.SaveChangesAsync() > 0;
         }
 
         public async Task<string> Login(CreateUserDTO userDTO)
         {
-            _logger.LogInformation("Logging user...");
+            Hangfire.BackgroundJob.Enqueue(() => Logger.LogInformation("Logging user..."));
             var role = await _dbContext.Users
                 .Where(u => u.Username == userDTO.Username && u.Password == userDTO.Password)
                 .Select(u => u.Role)
                 .FirstOrDefaultAsync();
 
-            _logger.LogInformation("User logged in!");
+            Hangfire.BackgroundJob.Enqueue(() => Logger.LogInformation("User logged in!"));
             return role!;
         }
     }

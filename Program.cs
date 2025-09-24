@@ -1,18 +1,25 @@
+using Hangfire;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Serilog;
 using ServiciiPubliceBackend.DAL;
+using ServiciiPubliceBackend.Loggers;
 using ServiciiPubliceBackend.Repositories;
 using ServiciiPubliceBackend.TokenManagers;
 using ServiciiPubliceBackend.UnitOfWork;
 using System.Text;
-using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add serilog services to the container and read config from appsettings
 builder.Host.UseSerilog((context, configuration) =>
     configuration.ReadFrom.Configuration(context.Configuration));
+
+// Add Hangfire services
+builder.Services.AddHangfire(config =>
+    config.UseSqlServerStorage(builder.Configuration.GetConnectionString("Default")));
+builder.Services.AddHangfireServer();
 
 // Add CORS
 builder.Services.AddCors(options =>
@@ -59,13 +66,6 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
 
-//builder.Services.AddFluentMigratorCore()
-//    .ConfigureRunner(rb => rb
-//        .AddSqlServer()
-//        .WithGlobalConnectionString(builder.Configuration.GetConnectionString("Default"))
-//        .ScanIn(typeof(Program).Assembly).For.Migrations())
-//    .AddLogging(lb => lb.AddFluentMigratorConsole());
-
 builder.Services.AddScoped<IBonRepository, BonRepository>();
 builder.Services.AddScoped<IGhiseuRepository, GhiseuRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
@@ -81,8 +81,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-// Configure Serilog for logging
 app.UseSerilogRequestLogging();
+
+app.UseHangfireDashboard();
 
 app.UseCors();
 
