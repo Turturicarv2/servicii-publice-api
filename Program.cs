@@ -6,8 +6,13 @@ using ServiciiPubliceBackend.Repositories;
 using ServiciiPubliceBackend.TokenManagers;
 using ServiciiPubliceBackend.UnitOfWork;
 using System.Text;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Add serilog services to the container and read config from appsettings
+builder.Host.UseSerilog((context, configuration) =>
+    configuration.ReadFrom.Configuration(context.Configuration));
 
 // Add CORS
 builder.Services.AddCors(options =>
@@ -75,6 +80,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+// Configure Serilog for logging
+app.UseSerilogRequestLogging();
 
 app.UseCors();
 

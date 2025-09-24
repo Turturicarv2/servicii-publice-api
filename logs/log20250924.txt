@@ -1,0 +1,76 @@
+2025-09-24 10:12:26.777 +03:00 [INF] HTTP OPTIONS /api/User/LoginUser responded 204 in 5.6976 ms
+2025-09-24 10:12:30.412 +03:00 [INF] HTTP POST /api/User/LoginUser responded 200 in 3456.9214 ms
+2025-09-24 10:12:31.661 +03:00 [INF] HTTP OPTIONS /api/Ghiseu/GetAllGhisee responded 204 in 1.4241 ms
+2025-09-24 10:12:32.318 +03:00 [INF] HTTP GET /api/Ghiseu/GetAllGhisee responded 200 in 613.0341 ms
+2025-09-24 10:12:33.489 +03:00 [INF] HTTP OPTIONS /api/Bon/CreateBon responded 204 in 0.7068 ms
+2025-09-24 10:12:33.631 +03:00 [INF] Creating bon...
+2025-09-24 10:12:34.152 +03:00 [INF] Bon created with id 2
+2025-09-24 10:12:34.159 +03:00 [INF] HTTP POST /api/Bon/CreateBon responded 200 in 610.3563 ms
+2025-09-24 10:12:41.204 +03:00 [INF] HTTP OPTIONS /api/Bon/GetAllBonuri responded 204 in 0.1292 ms
+2025-09-24 10:12:41.328 +03:00 [INF] Requesting all bonuri
+2025-09-24 10:12:41.399 +03:00 [INF] HTTP GET /api/Bon/GetAllBonuri responded 200 in 90.1847 ms
+2025-09-24 10:12:41.412 +03:00 [INF] HTTP OPTIONS /api/Ghiseu/GetAllGhisee responded 204 in 0.1111 ms
+2025-09-24 10:12:41.429 +03:00 [INF] HTTP GET /api/Ghiseu/GetAllGhisee responded 200 in 10.2469 ms
+2025-09-24 10:12:43.411 +03:00 [INF] HTTP OPTIONS /api/Bon/MarkBonAsReceived/1 responded 204 in 0.1026 ms
+2025-09-24 10:12:43.435 +03:00 [INF] Mark bon with id 1 as recieved (preluat)
+2025-09-24 10:12:43.536 +03:00 [INF] HTTP PATCH /api/Bon/MarkBonAsReceived/1 responded 200 in 114.1092 ms
+2025-09-24 10:31:02.071 +03:00 [INF] HTTP OPTIONS /api/User/LoginUser responded 204 in 6.4160 ms
+2025-09-24 10:31:02.822 +03:00 [INF] Logging user...
+2025-09-24 10:31:05.366 +03:00 [INF] User logged in!
+2025-09-24 10:31:05.434 +03:00 [INF] HTTP POST /api/User/LoginUser responded 200 in 3244.9077 ms
+2025-09-24 10:31:06.977 +03:00 [INF] HTTP OPTIONS /api/Ghiseu/GetAllGhisee responded 204 in 3.0551 ms
+2025-09-24 10:31:07.122 +03:00 [INF] Requesting all ghisee...
+2025-09-24 10:31:07.470 +03:00 [INF] HTTP GET /api/Ghiseu/GetAllGhisee responded 200 in 484.5316 ms
+2025-09-24 10:31:08.639 +03:00 [INF] HTTP OPTIONS /api/Bon/CreateBon responded 204 in 0.7735 ms
+2025-09-24 10:31:08.749 +03:00 [INF] Creating bon...
+2025-09-24 10:31:09.210 +03:00 [INF] Bon created with id 3
+2025-09-24 10:31:09.220 +03:00 [INF] HTTP POST /api/Bon/CreateBon responded 200 in 504.7493 ms
+2025-09-24 10:31:17.263 +03:00 [INF] HTTP OPTIONS /api/Ghiseu/GetAllGhisee responded 204 in 0.1465 ms
+2025-09-24 10:31:17.304 +03:00 [INF] Requesting all ghisee...
+2025-09-24 10:31:17.400 +03:00 [INF] HTTP GET /api/Ghiseu/GetAllGhisee responded 200 in 101.0560 ms
+2025-09-24 10:31:19.229 +03:00 [INF] HTTP OPTIONS /api/Ghiseu/MarkGhiseuAsActive/2 responded 204 in 0.1132 ms
+2025-09-24 10:31:19.264 +03:00 [INF] Marking ghiseu as active...
+2025-09-24 10:31:19.405 +03:00 [INF] HTTP PATCH /api/Ghiseu/MarkGhiseuAsActive/2 responded 200 in 165.4023 ms
+2025-09-24 10:31:21.513 +03:00 [INF] HTTP OPTIONS /api/Bon/GetAllBonuriByGhiseuId/1 responded 204 in 0.1018 ms
+2025-09-24 10:31:21.566 +03:00 [INF] Requesting all bonuri with ghiseu id 1...
+2025-09-24 10:31:21.742 +03:00 [INF] HTTP GET /api/Bon/GetAllBonuriByGhiseuId/1 responded 200 in 192.0956 ms
+2025-09-24 10:31:21.771 +03:00 [INF] Requesting all ghisee...
+2025-09-24 10:31:21.819 +03:00 [INF] HTTP GET /api/Ghiseu/GetAllGhisee responded 200 in 49.4443 ms
+2025-09-24 10:31:23.784 +03:00 [INF] HTTP OPTIONS /api/Bon/MarkBonAsReceived/2 responded 204 in 0.2134 ms
+2025-09-24 10:31:23.838 +03:00 [INF] Marked bon with id 2 as received (preluat)
+2025-09-24 10:31:23.913 +03:00 [INF] HTTP PATCH /api/Bon/MarkBonAsReceived/2 responded 200 in 85.4866 ms
+2025-09-24 10:31:24.738 +03:00 [INF] HTTP OPTIONS /api/Bon/MarkBonAsReceived/3 responded 204 in 0.1210 ms
+2025-09-24 10:31:24.838 +03:00 [INF] Marked bon with id 3 as received (preluat)
+2025-09-24 10:31:24.906 +03:00 [INF] HTTP PATCH /api/Bon/MarkBonAsReceived/3 responded 200 in 73.1903 ms
+2025-09-24 10:31:26.065 +03:00 [INF] HTTP OPTIONS /api/Bon/MarkBonAsClosed/1 responded 204 in 0.6089 ms
+2025-09-24 10:31:26.087 +03:00 [INF] Marked bon with id 1 as closed (inchis)
+2025-09-24 10:31:26.147 +03:00 [INF] HTTP PATCH /api/Bon/MarkBonAsClosed/1 responded 200 in 74.7839 ms
+2025-09-24 10:31:29.653 +03:00 [INF] HTTP OPTIONS /api/Bon/GetAllBonuri responded 204 in 0.1075 ms
+2025-09-24 10:31:29.678 +03:00 [INF] Requesting all bonuri...
+2025-09-24 10:31:29.737 +03:00 [INF] HTTP GET /api/Bon/GetAllBonuri responded 200 in 69.8151 ms
+2025-09-24 10:31:29.756 +03:00 [INF] HTTP OPTIONS /api/Ghiseu/GetAllGhisee responded 204 in 0.1381 ms
+2025-09-24 10:31:29.765 +03:00 [INF] Requesting all ghisee...
+2025-09-24 10:31:29.780 +03:00 [INF] HTTP GET /api/Ghiseu/GetAllGhisee responded 200 in 15.9129 ms
+2025-09-24 10:31:32.735 +03:00 [INF] Requesting all ghisee...
+2025-09-24 10:31:32.811 +03:00 [INF] HTTP GET /api/Ghiseu/GetAllGhisee responded 200 in 77.0667 ms
+2025-09-24 10:31:36.228 +03:00 [INF] HTTP OPTIONS /api/Bon/GetAllBonuriByGhiseuId/1 responded 204 in 0.0616 ms
+2025-09-24 10:31:36.252 +03:00 [INF] Requesting all bonuri with ghiseu id 1...
+2025-09-24 10:31:36.265 +03:00 [INF] HTTP GET /api/Bon/GetAllBonuriByGhiseuId/1 responded 200 in 14.5168 ms
+2025-09-24 10:31:36.276 +03:00 [INF] HTTP OPTIONS /api/Ghiseu/GetAllGhisee responded 204 in 0.0647 ms
+2025-09-24 10:31:36.283 +03:00 [INF] Requesting all ghisee...
+2025-09-24 10:31:36.294 +03:00 [INF] HTTP GET /api/Ghiseu/GetAllGhisee responded 200 in 12.1009 ms
+2025-09-24 10:31:42.627 +03:00 [INF] HTTP OPTIONS /api/Bon/GetAllBonuri responded 204 in 0.0744 ms
+2025-09-24 10:31:42.636 +03:00 [INF] Requesting all bonuri...
+2025-09-24 10:31:42.646 +03:00 [INF] HTTP GET /api/Bon/GetAllBonuri responded 200 in 10.9214 ms
+2025-09-24 10:31:42.654 +03:00 [INF] HTTP OPTIONS /api/Ghiseu/GetAllGhisee responded 204 in 0.0633 ms
+2025-09-24 10:31:42.663 +03:00 [INF] Requesting all ghisee...
+2025-09-24 10:31:42.673 +03:00 [INF] HTTP GET /api/Ghiseu/GetAllGhisee responded 200 in 10.5611 ms
+2025-09-24 10:31:46.121 +03:00 [INF] Requesting all ghisee...
+2025-09-24 10:31:46.158 +03:00 [INF] HTTP GET /api/Ghiseu/GetAllGhisee responded 200 in 37.6235 ms
+2025-09-24 10:32:03.846 +03:00 [INF] HTTP OPTIONS /api/Ghiseu/AddGhiseu responded 204 in 0.0894 ms
+2025-09-24 10:32:03.898 +03:00 [INF] Creating ghiseu...
+2025-09-24 10:32:04.013 +03:00 [INF] Ghiseu created with id 3
+2025-09-24 10:32:04.015 +03:00 [INF] HTTP POST /api/Ghiseu/AddGhiseu responded 200 in 139.0449 ms
+2025-09-24 10:32:06.077 +03:00 [INF] HTTP OPTIONS /api/Ghiseu/MarkGhiseuAsActive/3 responded 204 in 0.2141 ms
+2025-09-24 10:32:06.090 +03:00 [INF] Marking ghiseu as active...
+2025-09-24 10:32:06.193 +03:00 [INF] HTTP PATCH /api/Ghiseu/MarkGhiseuAsActive/3 responded 200 in 105.6258 ms
