@@ -6,6 +6,7 @@ using ServiciiPubliceBackend.DAL;
 using ServiciiPubliceBackend.Models;
 using ServiciiPubliceBackend.Loggers;
 using Serilog;
+using Hangfire;
 
 namespace ServiciiPubliceBackend.Repositories
 {
@@ -20,33 +21,33 @@ namespace ServiciiPubliceBackend.Repositories
 
         public async Task<IEnumerable<Ghiseu>> GetAllAsync()
         {
-            Hangfire.BackgroundJob.Enqueue(() => Logger.LogInformation("Requesting all ghisee..."));
+            BackgroundJob.Enqueue(() => Logger.LogInformation("Requesting all ghisee..."));
             return await _dbContext.Ghiseu.ToListAsync();
         }
 
         public async Task<int> AddAsync(Ghiseu ghiseuNou)
         {
-            Hangfire.BackgroundJob.Enqueue(() => Logger.LogInformation("Creating ghiseu..."));
+            BackgroundJob.Enqueue(() => Logger.LogInformation("Creating ghiseu..."));
             _dbContext.Add(ghiseuNou);
             await _dbContext.SaveChangesAsync();
 
-            Hangfire.BackgroundJob.Enqueue(() => Logger.LogInformation($"Ghiseu created with id {ghiseuNou.Id}"));
+            BackgroundJob.Enqueue(() => Logger.LogInformation($"Ghiseu created with id {ghiseuNou.Id}"));
             return ghiseuNou.Id;
         }
 
         public async Task<bool> EditGhiseuAsync(Ghiseu ghiseuNou)
         {
-            Hangfire.BackgroundJob.Enqueue(() => Logger.LogInformation("Updating ghiseu..."));
+            BackgroundJob.Enqueue(() => Logger.LogInformation("Updating ghiseu..."));
             if (ghiseuNou == null)
             {
-                Hangfire.BackgroundJob.Enqueue(() => Logger.LogError("Ghiseu is null!"));
+                BackgroundJob.Enqueue(() => Logger.LogError("Ghiseu is null!"));
                 throw new ArgumentNullException(nameof(ghiseuNou));
             }
 
             var existing = await _dbContext.Ghiseu.FindAsync(ghiseuNou.Id);
             if (existing == null)
             {
-                Hangfire.BackgroundJob.Enqueue(() => Logger.LogError("Ghiseu doesn't exist!"));
+                BackgroundJob.Enqueue(() => Logger.LogError("Ghiseu doesn't exist!"));
                 return false; 
             }
 
@@ -55,13 +56,13 @@ namespace ServiciiPubliceBackend.Repositories
             existing.Descriere = ghiseuNou.Descriere;
             existing.Icon = ghiseuNou.Icon;
 
-            Hangfire.BackgroundJob.Enqueue(() => Logger.LogInformation("Ghiseu Updated!"));
+            BackgroundJob.Enqueue(() => Logger.LogInformation("Ghiseu Updated!"));
             return await _dbContext.SaveChangesAsync() > 0;
         }
 
         public async Task<bool> MarkGhiseuAsActiveAsync(int Id)
         {
-            Hangfire.BackgroundJob.Enqueue(() => Logger.LogInformation($"Marking ghiseu with id {Id} as active..."));
+            BackgroundJob.Enqueue(() => Logger.LogInformation($"Marking ghiseu with id {Id} as active..."));
             var ghiseu = await _dbContext.Ghiseu.FindAsync(Id);
             if (ghiseu == null)
                 return false;
@@ -73,7 +74,7 @@ namespace ServiciiPubliceBackend.Repositories
 
         public async Task<bool> MarkGhiseuAsInactiveAsync(int Id)
         {
-            Hangfire.BackgroundJob.Enqueue(() => Logger.LogInformation($"Marking ghiseu with id {Id} as inactive..."));
+            BackgroundJob.Enqueue(() => Logger.LogInformation($"Marking ghiseu with id {Id} as inactive..."));
             var ghiseu = await _dbContext.Ghiseu.FindAsync(Id);
             if (ghiseu == null)
                 return false;
@@ -85,13 +86,13 @@ namespace ServiciiPubliceBackend.Repositories
 
         public async Task<bool> DeleteGhiseuAsync(int Id)
         {
-            Hangfire.BackgroundJob.Enqueue(() => Logger.LogInformation($"Deleting ghiseu with id {Id}..."));
+            BackgroundJob.Enqueue(() => Logger.LogInformation($"Deleting ghiseu with id {Id}..."));
             var ghiseu = await _dbContext.Ghiseu.FindAsync(Id);
             if (ghiseu == null)
                 return false;
 
             _dbContext.Remove(ghiseu);
-            Hangfire.BackgroundJob.Enqueue(() => Logger.LogInformation("Ghiseu deleted!"));
+            BackgroundJob.Enqueue(() => Logger.LogInformation("Ghiseu deleted!"));
             return await _dbContext.SaveChangesAsync() > 0;
         }
     }

@@ -5,6 +5,7 @@ using ServiciiPubliceBackend.Models;
 using System.Threading.Tasks;
 using Serilog;
 using ServiciiPubliceBackend.Loggers;
+using Hangfire;
 
 namespace ServiciiPubliceBackend.Repositories
 {
@@ -19,29 +20,29 @@ namespace ServiciiPubliceBackend.Repositories
 
         public async Task<IEnumerable<Bon>> GetAllAsync()
         {
-            Hangfire.BackgroundJob.Enqueue(() => Logger.LogInformation("Requesting all bonuri..."));
+            BackgroundJob.Enqueue(() => Logger.LogInformation("Requesting all bonuri..."));
             return await _dbContext.Bon.ToListAsync();
         }
 
         public async Task<IEnumerable<Bon>> GetAllByGhiseuIdAsync(int IdGhiseu)
         {
-            Hangfire.BackgroundJob.Enqueue(() => Logger.LogInformation($"Requesting all bonuri with ghiseu id {IdGhiseu}..."));
+            BackgroundJob.Enqueue(() => Logger.LogInformation($"Requesting all bonuri with ghiseu id {IdGhiseu}..."));
             return await _dbContext.Bon.Where(b => b.IdGhiseu == IdGhiseu).ToListAsync();
         }
 
         public async Task<int> AddAsync(Bon bon)
         {
-            Hangfire.BackgroundJob.Enqueue(() => Logger.LogInformation("Creating bon..."));
+            BackgroundJob.Enqueue(() => Logger.LogInformation("Creating bon..."));
             _dbContext.Bon.Add(bon);
             await _dbContext.SaveChangesAsync();
 
-            Hangfire.BackgroundJob.Enqueue(() => Logger.LogInformation($"Bon created with id {bon.Id}"));
+            BackgroundJob.Enqueue(() => Logger.LogInformation($"Bon created with id {bon.Id}"));
             return bon.Id;
         }
 
         public async Task<bool> MarkBonAsInProgressAsync(int id)
         {
-            Hangfire.BackgroundJob.Enqueue(() => Logger.LogInformation($"Marked bon with id {id} as in progress (in asteptare)"));
+            BackgroundJob.Enqueue(() => Logger.LogInformation($"Marked bon with id {id} as in progress (in asteptare)"));
             var bon = await _dbContext.Bon.FindAsync(id);
             if (bon == null) return false;
 
@@ -53,7 +54,7 @@ namespace ServiciiPubliceBackend.Repositories
 
         public async Task<bool> MarkBonAsRecievedAsync(int id)
         {
-            Hangfire.BackgroundJob.Enqueue(() => Logger.LogInformation($"Marked bon with id {id} as received (preluat)"));
+            BackgroundJob.Enqueue(() => Logger.LogInformation($"Marked bon with id {id} as received (preluat)"));
             var bon = await _dbContext.Bon.FindAsync(id);
             if (bon == null) return false;
 
@@ -65,7 +66,7 @@ namespace ServiciiPubliceBackend.Repositories
 
         public async Task<bool> MarkBonAsClosedAsync(int id)
         {
-            Hangfire.BackgroundJob.Enqueue(() => Logger.LogInformation($"Marked bon with id {id} as closed (inchis)"));
+            BackgroundJob.Enqueue(() => Logger.LogInformation($"Marked bon with id {id} as closed (inchis)"));
             var bon = await _dbContext.Bon.FindAsync(id);
             if (bon == null) return false;
 

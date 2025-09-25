@@ -18,22 +18,22 @@ namespace ServiciiPubliceBackend.Repositories
 
         public async Task<bool> AddUserAsync(User user) 
         {
-            Hangfire.BackgroundJob.Enqueue(() => Logger.LogInformation("Creating user to database..."));
+            BackgroundJob.Enqueue(() => Logger.LogInformation("Creating user to database..."));
             _dbContext.Users.Add(user);
 
-            Hangfire.BackgroundJob.Enqueue(() => Logger.LogInformation("User created!"));
+            BackgroundJob.Enqueue(() => Logger.LogInformation("User created!"));
             return await _dbContext.SaveChangesAsync() > 0;
         }
 
         public async Task<string> Login(CreateUserDTO userDTO)
         {
-            Hangfire.BackgroundJob.Enqueue(() => Logger.LogInformation("Logging user..."));
+            BackgroundJob.Enqueue(() => Logger.LogInformation("Logging user..."));
             var role = await _dbContext.Users
                 .Where(u => u.Username == userDTO.Username && u.Password == userDTO.Password)
                 .Select(u => u.Role)
                 .FirstOrDefaultAsync();
 
-            Hangfire.BackgroundJob.Enqueue(() => Logger.LogInformation("User logged in!"));
+            BackgroundJob.Enqueue(() => Logger.LogInformation("User logged in!"));
             return role!;
         }
     }
